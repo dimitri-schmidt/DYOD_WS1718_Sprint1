@@ -15,7 +15,7 @@
 namespace opossum {
 
 void Chunk::add_column(std::shared_ptr<BaseColumn> column) {
-  // Implementation goes here
+  _columns.push_back(column);
 }
 
 void Chunk::append(const std::vector<AllTypeVariant>& values) {
@@ -23,17 +23,20 @@ void Chunk::append(const std::vector<AllTypeVariant>& values) {
 }
 
 std::shared_ptr<BaseColumn> Chunk::get_column(ColumnID column_id) const {
-  // Implementation goes here
+  if (column_id < col_count()) {
+    return _columns[column_id];
+  }
   return nullptr;
 }
 
 uint16_t Chunk::col_count() const {
-  // Implementation goes here
-  return 0;
+  return _columns.size(); 
 }
 
 uint32_t Chunk::size() const {
-  // Implementation goes here
+  if (_columns[0]) {
+    return _columns[0]->size();
+  }
   return 0;
 }
 
