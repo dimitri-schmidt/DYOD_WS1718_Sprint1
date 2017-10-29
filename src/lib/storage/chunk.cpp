@@ -21,11 +21,11 @@ void Chunk::add_column(std::shared_ptr<BaseColumn> column) {
 void Chunk::append(const std::vector<AllTypeVariant>& values) {
   DebugAssert(values.size() == col_count(),
     "chunk::append: number of values does not match the number of columns");
-  
+
   auto value_it = values.begin();
   auto value_end = values.end();
   auto column_it = _columns.begin();
-  for (; value_it != value_end; value_it++, column_it++ ){
+  for (; value_it != value_end; value_it++, column_it++) {
     (*column_it)->append(*value_it);
   }
 }
@@ -38,7 +38,7 @@ std::shared_ptr<BaseColumn> Chunk::get_column(ColumnID column_id) const {
 }
 
 uint16_t Chunk::col_count() const {
-  return _columns.size(); 
+  return _columns.size();
 }
 
 uint32_t Chunk::size() const {

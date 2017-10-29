@@ -47,7 +47,6 @@ class Chunk : private Noncopyable {
 
  protected:
   std::vector<std::shared_ptr<BaseColumn>> _columns;
-
 };
 
 }  // namespace opossum
