@@ -30,8 +30,7 @@ class StorageChunkTest : public BaseTest {
 };
 
 TEST_F(StorageChunkTest, AddColumnToChunk) {
-  // EXPECT_EQ(c.size(), 0u);   This throws SegFault !!!!!!!
-  EXPECT_EQ(true, false);
+  EXPECT_EQ(c.size(), 0u);
   c.add_column(vc_int);
   c.add_column(vc_str);
   EXPECT_EQ(c.size(), 3u);

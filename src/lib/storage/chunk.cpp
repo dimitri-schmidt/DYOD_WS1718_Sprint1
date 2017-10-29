@@ -42,7 +42,7 @@ uint16_t Chunk::col_count() const {
 }
 
 uint32_t Chunk::size() const {
-  if (_columns[0]) {
+  if (col_count() > 0) {
     return _columns[0]->size();
   }
   return 0;
