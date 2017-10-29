@@ -10,37 +10,49 @@
 namespace opossum {
 
 StorageManager& StorageManager::get() {
-  throw std::runtime_error("Implement StorageManager::get");
+  static StorageManager storage_manager;
+  return storage_manager;
 }
 
 void StorageManager::add_table(const std::string& name, std::shared_ptr<Table> table) {
-  // Implementation goes here
+  _tables.insert(std::make_pair(name, table));
 }
 
 void StorageManager::drop_table(const std::string& name) {
-  // Implementation goes here
+  auto count = _tables.erase(name);
+  if (count <= 0) {
+    throw std::invalid_argument("table with name " + name + " not found");
+  }
 }
 
 std::shared_ptr<Table> StorageManager::get_table(const std::string& name) const {
-  // Implementation goes here
-  return nullptr;
+  auto table = _tables.find(name);
+  if (table != _tables.end()) {
+    return table->second;
+  }
+  throw std::invalid_argument("table with name " + name + " not found");
 }
 
 bool StorageManager::has_table(const std::string& name) const {
-  // Implementation goes here
-  return false;
+  return (_tables.count(name) > 0);
 }
 
 std::vector<std::string> StorageManager::table_names() const {
-  throw std::runtime_error("Implement StorageManager::table_names");
+  std::vector<std::string> names;
+  for (auto table : _tables) {
+    names.push_back(table.first);
+  }
+  return names;
 }
 
 void StorageManager::print(std::ostream& out) const {
-  // Implementation goes here
+  for (auto table : _tables) {
+    out << table.first << std::endl;
+  }
 }
 
 void StorageManager::reset() {
-  // Implementation goes here;
+  get() = StorageManager();
 }
 
 }  // namespace opossum
